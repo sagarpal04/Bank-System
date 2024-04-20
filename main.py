@@ -37,12 +37,22 @@ class Customer:
 
 def create_account():
     name = name_entry.get()
-    initial_deposit = int(initial_deposit_entry.get())
-    customer = Customer(name, initial_deposit)
-    customers.append(customer)
-    customer_combobox['values'] = [customer.customer_Name for customer in customers]
-    customer_combobox.current(len(customers) - 1)
-    update_display()
+    initial_deposit_str = initial_deposit_entry.get()
+    if name and initial_deposit_str:  # Check if both fields are not empty
+        initial_deposit = int(initial_deposit_str)
+        customer = Customer(name, initial_deposit)
+        customers.append(customer)
+        customer_combobox['values'] = [customer.customer_Name for customer in customers]
+        customer_combobox.current(len(customers) - 1)
+        update_display()
+
+        # Clear input fields regardless of input validity
+        clear_input_fields()
+
+def clear_input_fields():
+    name_entry.delete(0, tk.END)
+    initial_deposit_entry.delete(0, tk.END)
+
 
 
 def deposit_action():
